@@ -1,8 +1,0 @@
-/home/nicu/Workspace/DotNet/BlogApp/bin/Debug/netcoreapp1.1/BlogApp.deps.json
-/home/nicu/Workspace/DotNet/BlogApp/bin/Debug/netcoreapp1.1/BlogApp.runtimeconfig.json
-/home/nicu/Workspace/DotNet/BlogApp/bin/Debug/netcoreapp1.1/BlogApp.runtimeconfig.dev.json
-/home/nicu/Workspace/DotNet/BlogApp/obj/Debug/netcoreapp1.1/BlogApp.AssemblyInfo.cs
-/home/nicu/Workspace/DotNet/BlogApp/bin/Debug/netcoreapp1.1/BlogApp.dll
-/home/nicu/Workspace/DotNet/BlogApp/bin/Debug/netcoreapp1.1/BlogApp.pdb
-/home/nicu/Workspace/DotNet/BlogApp/obj/Debug/netcoreapp1.1/BlogApp.dll
-/home/nicu/Workspace/DotNet/BlogApp/obj/Debug/netcoreapp1.1/BlogApp.pdb
