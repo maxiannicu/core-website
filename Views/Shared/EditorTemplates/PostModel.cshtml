@@ -1,19 +1,26 @@
-﻿@model BlogApp.Models.BlogModel
+﻿@model BlogApp.Models.PostModel
 
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary()
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Author)
-        @Html.TextBoxFor(model => model.Author, new
+        @Html.LabelFor(model => model.Title)
+        @Html.TextBoxFor(model => model.Title, new
         {
             @class = "form-control"
         })
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.Title)
-        @Html.TextBoxFor(model => model.Title, new
+        @Html.LabelFor(model => model.ShortDescription)
+        @Html.TextAreaFor(model => model.ShortDescription, new
+        {
+            @class = "form-control"
+        })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullDescription)
+        @Html.TextAreaFor(model => model.FullDescription, new
         {
             @class = "form-control"
         })

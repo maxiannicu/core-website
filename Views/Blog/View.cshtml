@@ -1,0 +1,23 @@
+@using BlogApp.Models
+@model BlogApp.Models.BlogViewModel
+@{
+    ViewData["Title"] = @Model.Blog.Title;
+}
+
+<h1>@Model.Blog.Title - @Model.Blog.Author</h1>
+@Html.ActionLink("Add new post","Create","Post",new
+{
+    blogId = @Model.Blog.Id
+},new
+{
+    @class = "btn btn-default"
+})
+@foreach (PostModel post in @Model.Posts)
+{
+    <div class="media">
+        <div class="media-body">
+            <h4 class="media-heading">@post.Title</h4>
+            @post.ShortDescription
+        </div>
+    </div>
+}

@@ -8,8 +8,8 @@ using BlogApp;
 namespace BlogApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20170524162606_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20170524220638_BaseMigration")]
+    partial class BaseMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,12 +23,14 @@ namespace BlogApp.Migrations
 
                     b.Property<string>("Author");
 
+                    b.Property<string>("Title");
+
                     b.HasKey("Id");
 
                     b.ToTable("Blogs");
                 });
 
-            modelBuilder.Entity("BlogApp.Entities.BlogPost", b =>
+            modelBuilder.Entity("BlogApp.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -48,7 +50,7 @@ namespace BlogApp.Migrations
                     b.ToTable("BlogPosts");
                 });
 
-            modelBuilder.Entity("BlogApp.Entities.BlogPost", b =>
+            modelBuilder.Entity("BlogApp.Entities.Post", b =>
                 {
                     b.HasOne("BlogApp.Entities.Blog", "Blog")
                         .WithMany("Posts")

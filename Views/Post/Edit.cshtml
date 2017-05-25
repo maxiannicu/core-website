@@ -1,8 +1,8 @@
 @{
     ViewData["Title"] = "Create blog";
 }
-@model BlogApp.Models.BlogModel
+@model BlogApp.Models.PostModel
 
-<h1>Create new blog</h1>
+<h1>Editing - @Model.Title </h1>
 
 @Html.EditorForModel()

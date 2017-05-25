@@ -29,7 +29,7 @@ namespace BlogApp.Migrations
                     b.ToTable("Blogs");
                 });
 
-            modelBuilder.Entity("BlogApp.Entities.BlogPost", b =>
+            modelBuilder.Entity("BlogApp.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -49,7 +49,7 @@ namespace BlogApp.Migrations
                     b.ToTable("BlogPosts");
                 });
 
-            modelBuilder.Entity("BlogApp.Entities.BlogPost", b =>
+            modelBuilder.Entity("BlogApp.Entities.Post", b =>
                 {
                     b.HasOne("BlogApp.Entities.Blog", "Blog")
                         .WithMany("Posts")

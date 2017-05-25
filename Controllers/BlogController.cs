@@ -1,6 +1,8 @@
 ﻿
+using System.Collections.Generic;
 using System.Linq;
 using BlogApp.Entities;
+using BlogApp.Helpers;
 using BlogApp.Models;
 using BlogApp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +12,12 @@ namespace BlogApp.Controllers
     public class BlogController : Controller
     {
         private readonly IBlogService _blogService;
+        private readonly IPostService _postService;
 
-        public BlogController(IBlogService blogService)
+        public BlogController(IBlogService blogService, IPostService postService)
         {
             _blogService = blogService;
+            _postService = postService;
         }
 
         public IActionResult Index()
@@ -21,9 +25,25 @@ namespace BlogApp.Controllers
             var blogs = _blogService.GetAll();
             return View(new BlogIndexModel
             {
-                Blogs = blogs.Select(e => EntityToModel(e)).ToList()
+                Blogs = blogs.Select(e => Mapping.EntityToModel(e)).ToList()
             });
         }
+
+        public IActionResult View(int id)
+        {
+            var blog = _blogService.Get(id);
+            if (blog == null)
+                return NotFound();
+
+
+            var blogViewModel = new BlogViewModel
+            {
+                Blog = Mapping.EntityToModel(blog),
+                Posts = blog.Posts.Select(Mapping.EntityToModel).ToList()
+            };
+            return View(blogViewModel);
+        }
+
 
         public IActionResult Create()
         {
@@ -36,7 +56,7 @@ namespace BlogApp.Controllers
             if (TryValidateModel(model))
             {
                 var blog = new Blog();
-                ModelToEntity(model,blog);
+                Mapping.ModelToEntity(model,blog);
                 _blogService.Insert(blog);
                 return RedirectToAction("Index");
             }
@@ -49,7 +69,7 @@ namespace BlogApp.Controllers
             if (blog == null)
                 return NotFound();
 
-            return View(EntityToModel(blog));
+            return View(Mapping.EntityToModel(blog));
         }
 
         [HttpPost]
@@ -61,7 +81,7 @@ namespace BlogApp.Controllers
                 if (blog == null)
                     return NotFound();
 
-                ModelToEntity(model,blog);
+                Mapping.ModelToEntity(model,blog);
 
 
                 return RedirectToAction("Index");
@@ -74,22 +94,6 @@ namespace BlogApp.Controllers
         {
             _blogService.Remove(id);
             return RedirectToAction("Index");
-        }
-
-        private static BlogModel EntityToModel(Blog blog)
-        {
-            return new BlogModel
-            {
-                Id = blog.Id,
-                Author = blog.Author,
-                Title = blog.Title
-            };
-        }
-
-        private static void ModelToEntity(BlogModel model,Blog entity)
-        {
-            entity.Author = model.Author;
-            entity.Title = model.Title;
         }
 
     }

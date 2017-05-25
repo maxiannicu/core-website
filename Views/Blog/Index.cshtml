@@ -2,7 +2,7 @@
     ViewData["Title"] = "Blogs";
 }
 @using BlogApp.Models
-@model BlogApp.Models.BlogIndexModel
+@model BlogIndexModel
 
 <h1>Blogs</h1>
 
@@ -17,6 +17,13 @@
         <h1>@blog.Title</h1>
         <p>By : @blog.Author</p>
         <p>
+            @Html.ActionLink("View", "View", "Blog", new
+            {
+                id = @blog.Id
+            }, new
+            {
+                @class = "btn btn-lg"
+            })
             @Html.ActionLink("Edit", "Edit", "Blog", new
             {
                 id = @blog.Id
