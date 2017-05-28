@@ -21,5 +21,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Migrations" />
+    <Folder Include="wwwroot\lib\bootstrap3-wysiwyg\dist\amd" />
+    <Folder Include="wwwroot\lib\bootstrap3-wysiwyg\dist\locales" />
+    <Folder Include="wwwroot\lib\bootstrap3-wysiwyg\examples" />
+    <Folder Include="wwwroot\lib\bootstrap\fonts" />
+    <Folder Include="wwwroot\lib\bootstrap\grunt" />
+    <Folder Include="wwwroot\lib\bootstrap\js" />
+    <Folder Include="wwwroot\lib\bootstrap\less\mixins" />
+    <Folder Include="wwwroot\lib\bootstrap\nuget" />
+    <Folder Include="wwwroot\lib\components-font-awesome\css" />
+    <Folder Include="wwwroot\lib\components-font-awesome\fonts" />
+    <Folder Include="wwwroot\lib\components-font-awesome\less" />
+    <Folder Include="wwwroot\lib\components-font-awesome\scss" />
+    <Folder Include="wwwroot\lib\handlebars\lib\handlebars" />
+    <Folder Include="wwwroot\lib\rangy-1.3\uncompressed" />
+    <Folder Include="wwwroot\lib\wysihtml5x\dist" />
+    <Folder Include="wwwroot\lib\wysihtml5x\lib\base" />
+    <Folder Include="wwwroot\lib\wysihtml5x\lib\rangy" />
+    <Folder Include="wwwroot\lib\wysihtml5x\parser_rules" />
   </ItemGroup>
 </Project>
