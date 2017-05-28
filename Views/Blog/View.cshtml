@@ -4,20 +4,51 @@
     ViewData["Title"] = @Model.Blog.Title;
 }
 
-<h1>@Model.Blog.Title - @Model.Blog.Author</h1>
-@Html.ActionLink("Add new post","Create","Post",new
-{
-    blogId = @Model.Blog.Id
-},new
-{
-    @class = "btn btn-default"
-})
-@foreach (PostModel post in @Model.Posts)
-{
-    <div class="media">
-        <div class="media-body">
-            <h4 class="media-heading">@post.Title</h4>
-            @post.ShortDescription
+
+<div class="page-header">
+    <h1>
+        @Model.Blog.Title - @Model.Blog.Author
+        <small>
+            <a href="@Url.Action("Create", "Post", new
+                     {
+                         blogId = @Model.Blog.Id
+                     })" type="button" class="btn btn-success" aria-label="Left Align">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                New post
+            </a>
+        </small>
+    </h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="postlist">
+                @foreach (PostModel post in @Model.Posts)
+                {
+                    <div class="panel">
+                        <div class="panel-heading row">
+                            <h3 class="pull-left">@post.Title</h3>
+                        </div>
+
+                        <div class="panel-body">
+                            @post.ShortDescription
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="btn-group" role="group">
+                                <a href="@Url.Action("View", "Post", new
+                                         {
+                                             id = post.Id
+                                         })" type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    Read more
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
-}
+</div>

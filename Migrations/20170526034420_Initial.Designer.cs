@@ -8,13 +8,14 @@ using BlogApp;
 namespace BlogApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20170524220638_BaseMigration")]
-    partial class BaseMigration
+    [Migration("20170526034420_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.1");
+                .HasAnnotation("ProductVersion", "1.1.2")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("BlogApp.Entities.Blog", b =>
                 {
@@ -47,7 +48,7 @@ namespace BlogApp.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("BlogPosts");
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("BlogApp.Entities.Post", b =>

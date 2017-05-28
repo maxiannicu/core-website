@@ -13,13 +13,19 @@ namespace BlogApp.Repository
 
         public List<Blog> Get(int? skip = null, int? take = null)
         {
-            var queryable = Table;
+            IQueryable<Blog> queryable = Table.Include(blog => blog.Posts);
             if (skip.HasValue)
                 queryable = queryable.Skip(skip.Value);
             if (take.HasValue)
                 queryable = queryable.Take(take.Value);
 
             return queryable.ToList();
+        }
+
+        public Blog GetBlogWithPosts(int id)
+        {
+            return Table.Include(blog => blog.Posts)
+                .FirstOrDefault(blog => blog.Id == id);
         }
     }
 }

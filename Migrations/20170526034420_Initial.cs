@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BlogApp.Migrations
 {
-    public partial class BaseMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +14,7 @@ namespace BlogApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Author = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true)
                 },
@@ -23,11 +24,11 @@ namespace BlogApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BlogPosts",
+                name: "Post",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BlogId = table.Column<int>(nullable: false),
                     FullDescription = table.Column<string>(nullable: true),
                     ShortDescription = table.Column<string>(nullable: true),
@@ -35,9 +36,9 @@ namespace BlogApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BlogPosts", x => x.Id);
+                    table.PrimaryKey("PK_Post", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BlogPosts_Blogs_BlogId",
+                        name: "FK_Post_Blogs_BlogId",
                         column: x => x.BlogId,
                         principalTable: "Blogs",
                         principalColumn: "Id",
@@ -45,15 +46,15 @@ namespace BlogApp.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BlogPosts_BlogId",
-                table: "BlogPosts",
+                name: "IX_Post_BlogId",
+                table: "Post",
                 column: "BlogId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BlogPosts");
+                name: "Post");
 
             migrationBuilder.DropTable(
                 name: "Blogs");

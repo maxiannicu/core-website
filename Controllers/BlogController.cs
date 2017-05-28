@@ -13,7 +13,7 @@ namespace BlogApp.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly IPostService _postService;
-
+        
         public BlogController(IBlogService blogService, IPostService postService)
         {
             _blogService = blogService;
@@ -31,10 +31,9 @@ namespace BlogApp.Controllers
 
         public IActionResult View(int id)
         {
-            var blog = _blogService.Get(id);
+            var blog = _blogService.GetBlogWithPosts(id);
             if (blog == null)
                 return NotFound();
-
 
             var blogViewModel = new BlogViewModel
             {
@@ -82,7 +81,7 @@ namespace BlogApp.Controllers
                     return NotFound();
 
                 Mapping.ModelToEntity(model,blog);
-
+                _blogService.Update(blog);
 
                 return RedirectToAction("Index");
             }

@@ -19,7 +19,13 @@ namespace BlogApp.Controllers
 
         public IActionResult View(int id)
         {
-            return View();
+            var post = _postService.GetById(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            
+            return View(Mapping.EntityToModel(post));
         }
 
         public IActionResult Create(int blogId)
@@ -65,11 +71,11 @@ namespace BlogApp.Controllers
                     return NotFound();
 
                 Mapping.ModelToEntity(model, post);
-
+                _postService.Update(post);
 
                 return RedirectToAction("View", new
                 {
-                    id = post.BlogId
+                    id = post.Id
                 });
             }
 

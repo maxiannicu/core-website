@@ -29,5 +29,10 @@ namespace BlogApp.Services
             if(entity != null)
                 _postRepository.Remove(entity);
         }
+
+        public void Update(Post entity)
+        {
+            _postRepository.Update(entity);
+        }
     }
 }

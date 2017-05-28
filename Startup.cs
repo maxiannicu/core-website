@@ -27,7 +27,7 @@ namespace BlogApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(optionsAction => optionsAction.UseSqlite("Data Source=blogging.db",b => b.MigrationsAssembly("BlogApp")));
+            services.AddDbContext<AppDbContext>(optionsAction => optionsAction.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Add framework services.
             services.AddMvc();

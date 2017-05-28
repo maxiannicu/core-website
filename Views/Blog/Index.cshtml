@@ -4,40 +4,47 @@
 @using BlogApp.Models
 @model BlogIndexModel
 
-<h1>Blogs</h1>
-
-@Html.ActionLink("Add new blog", "Create", "Blog", null, new
-{
-    @class = "btn btn-info btn-lg"
-})
+<div class="page-header">
+    <h1>
+        Blogs
+        <small>
+            <a href="@Url.Action("Create", "Blog")" type="button" class="btn btn-success" aria-label="Left Align">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                New
+            </a>
+        </small>
+    </h1>
+</div>
 
 @foreach (BlogModel blog in Model.Blogs)
 {
-    <div class="jumbotron">
+    <div class="well">
         <h1>@blog.Title</h1>
         <p>By : @blog.Author</p>
         <p>
-            @Html.ActionLink("View", "View", "Blog", new
-            {
-                id = @blog.Id
-            }, new
-            {
-                @class = "btn btn-lg"
-            })
-            @Html.ActionLink("Edit", "Edit", "Blog", new
-            {
-                id = @blog.Id
-            }, new
-            {
-                @class = "btn btn-info btn-lg"
-            })
-            @Html.ActionLink("Remove", "Remove", "Blog", new
-            {
-                id = @blog.Id
-            }, new
-            {
-                @class = "btn btn-danger btn-lg"
-            })
+            <div class="btn-group" role="group">
+                <a href="@Url.Action("View", "Blog", new
+                         {
+                             id = @blog.Id
+                         })" type="button" class="btn btn-default" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    View
+                </a>
+                <a href="@Url.Action("Edit", "Blog", new
+                         {
+                             id = @blog.Id
+                         })" type="button" class="btn btn-default" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                    Edit
+                </a>
+                <a href="@Url.Action("Remove", "Blog", new
+                         {
+                             id = @blog.Id
+                         })" type="button" class="btn btn-default" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    Remove
+                </a>
+            </div>
         </p>
     </div>
 }

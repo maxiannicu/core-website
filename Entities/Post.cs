@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace BlogApp.Entities
+﻿namespace BlogApp.Entities
 {
     public class Post : BaseEntity
     {

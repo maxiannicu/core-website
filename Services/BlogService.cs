@@ -23,6 +23,11 @@ namespace BlogApp.Services
             return _blogRepository.FindById(id);
         }
 
+        public Blog GetBlogWithPosts(int id)
+        {
+            return _blogRepository.GetBlogWithPosts(id);
+        }
+
         public void Remove(int id)
         {
             var entity = _blogRepository.FindById(id);

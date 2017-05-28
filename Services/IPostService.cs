@@ -8,5 +8,6 @@ namespace BlogApp.Services
         void Insert(Post entity);
         Post GetById(int id);
         void Remove(int id);
+        void Update(Post entity);
     }
 }

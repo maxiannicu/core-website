@@ -13,7 +13,8 @@ namespace BlogApp.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.1");
+                .HasAnnotation("ProductVersion", "1.1.2")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("BlogApp.Entities.Blog", b =>
                 {
@@ -46,7 +47,7 @@ namespace BlogApp.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.ToTable("BlogPosts");
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("BlogApp.Entities.Post", b =>
