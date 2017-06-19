@@ -1,6 +1,6 @@
-﻿using BlogApp.Services;
+﻿using BlogApp.Entities;
+using BlogApp.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace BlogApp.Helpers
 {
@@ -9,6 +9,11 @@ namespace BlogApp.Helpers
         public static bool IsLoggedIn(this IHtmlHelper helper)
         {
             return DiContainer.Resolve<IUserService>().LoggedIn;
+        }
+        
+        public static User CurrentUser(this IHtmlHelper helper)
+        {
+            return DiContainer.Resolve<IUserService>().CurrentUser;
         }
     }
 }

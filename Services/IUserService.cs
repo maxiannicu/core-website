@@ -11,5 +11,6 @@ namespace BlogApp.Services
         void CreateUser(User user,string password);
         void SignIn(User user);
         void SignIn(string username,string password);
+        void SignOut();
     }
 }

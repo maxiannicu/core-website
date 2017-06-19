@@ -58,5 +58,10 @@ namespace BlogApp.Services
                 };
             }
         }
+
+        public void SignOut()
+        {
+            _signInManager.SignOutAsync().Wait();
+        }
     }
 }

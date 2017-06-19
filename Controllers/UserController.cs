@@ -76,5 +76,12 @@ namespace BlogApp.Controllers
             
             return View(model);
         }
+
+        public IActionResult SignOut()
+        {
+            _userService.SignOut();
+            
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
