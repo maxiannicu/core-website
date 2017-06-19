@@ -1,9 +1,11 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using BlogApp.Entities;
 using BlogApp.Helpers;
 using BlogApp.Models;
+using BlogApp.Models.Blog;
 using BlogApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,19 +15,21 @@ namespace BlogApp.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly IPostService _postService;
+        private readonly IMapper _mapper;
         
-        public BlogController(IBlogService blogService, IPostService postService)
+        public BlogController(IBlogService blogService, IPostService postService, IMapper mapper)
         {
             _blogService = blogService;
             _postService = postService;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var blogs = _blogService.GetAll();
-            return View(new BlogIndexModel
+            return View(new IndexModel
             {
-                Blogs = blogs.Select(e => Mapping.EntityToModel(e)).ToList()
+                Blogs = blogs.Select(s => _mapper.Map<IndexEntryModel>(s)).ToList()
             });
         }
 
@@ -35,27 +39,21 @@ namespace BlogApp.Controllers
             if (blog == null)
                 return NotFound();
 
-            var blogViewModel = new BlogViewModel
-            {
-                Blog = Mapping.EntityToModel(blog),
-                Posts = blog.Posts.Select(Mapping.EntityToModel).ToList()
-            };
-            return View(blogViewModel);
+            return View(_mapper.Map<ViewModel>(blog));
         }
 
 
         public IActionResult Create()
         {
-            return View(new BlogModel());
+            return View(new CreateOrUpdateModel());
         }
 
         [HttpPost]
-        public IActionResult Create(BlogModel model)
+        public IActionResult Create(CreateOrUpdateModel model)
         {
             if (TryValidateModel(model))
             {
-                var blog = new Blog();
-                Mapping.ModelToEntity(model,blog);
+                var blog = _mapper.Map<Blog>(model);
                 _blogService.Insert(blog);
                 return RedirectToAction("Index");
             }
@@ -68,11 +66,11 @@ namespace BlogApp.Controllers
             if (blog == null)
                 return NotFound();
 
-            return View(Mapping.EntityToModel(blog));
+            return View(_mapper.Map<CreateOrUpdateModel>(blog));
         }
 
         [HttpPost]
-        public IActionResult Edit(int id,BlogModel model)
+        public IActionResult Edit(int id,CreateOrUpdateModel model)
         {
             if (TryValidateModel(model))
             {
@@ -80,7 +78,7 @@ namespace BlogApp.Controllers
                 if (blog == null)
                     return NotFound();
 
-                Mapping.ModelToEntity(model,blog);
+                _mapper.Map(model, blog);
                 _blogService.Update(blog);
 
                 return RedirectToAction("Index");
@@ -94,6 +92,5 @@ namespace BlogApp.Controllers
             _blogService.Remove(id);
             return RedirectToAction("Index");
         }
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using BlogApp.Entities;
 using BlogApp.Helpers;
 using BlogApp.Repository;
@@ -47,6 +48,7 @@ namespace BlogApp
             services.AddTransient<IPostService,PostService>();
             services.AddTransient<IUserService,UserService>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddAutoMapper();
 
             services.Configure<IdentityOptions>(options =>
             {

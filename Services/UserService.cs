@@ -54,7 +54,7 @@ namespace BlogApp.Services
             {
                 throw new SignInUserException()
                 {
-                    Errors = {"Incorrect login or password"}
+                    Errors = new string[]{"Incorrect login or password"}.ToList()
                 };
             }
         }

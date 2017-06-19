@@ -1,8 +1,7 @@
 @{
     ViewData["Title"] = "Blogs";
 }
-@using BlogApp.Models
-@model BlogIndexModel
+@model BlogApp.Models.Blog.IndexModel
 
 <div class="page-header">
     <h1>
@@ -16,11 +15,11 @@
     </h1>
 </div>
 
-@foreach (BlogModel blog in Model.Blogs)
+@foreach (var blog in Model.Blogs)
 {
     <div class="well">
         <h1>@blog.Title</h1>
-        <p>By : @blog.Author</p>
+        <p>By : @blog.Author.UserName</p>
         <p>
             <div class="btn-group" role="group">
                 <a href="@Url.Action("View", "Blog", new

@@ -1,4 +1,6 @@
-﻿using BlogApp.Entities;
+﻿using AutoMapper;
+using BlogApp.Entities;
+using BlogApp.Models.Shared;
 using BlogApp.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -11,9 +13,10 @@ namespace BlogApp.Helpers
             return DiContainer.Resolve<IUserService>().LoggedIn;
         }
         
-        public static User CurrentUser(this IHtmlHelper helper)
+        public static UserLayoutModel CurrentUser(this IHtmlHelper helper)
         {
-            return DiContainer.Resolve<IUserService>().CurrentUser;
+            var mapper = DiContainer.Resolve<IMapper>();
+            return mapper.Map<UserLayoutModel>(DiContainer.Resolve<IUserService>().CurrentUser);
         }
     }
 }

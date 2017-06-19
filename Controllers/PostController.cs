@@ -1,6 +1,8 @@
-﻿using BlogApp.Entities;
+﻿using AutoMapper;
+using BlogApp.Entities;
 using BlogApp.Helpers;
 using BlogApp.Models;
+using BlogApp.Models.Post;
 using BlogApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +12,13 @@ namespace BlogApp.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly IPostService _postService;
+        private readonly IMapper _mapper;
 
-        public PostController(IBlogService blogService, IPostService postService)
+        public PostController(IBlogService blogService, IPostService postService, IMapper mapper)
         {
             _blogService = blogService;
             _postService = postService;
+            _mapper = mapper;
         }
 
         public IActionResult View(int id)
@@ -25,22 +29,22 @@ namespace BlogApp.Controllers
                 return NotFound();
             }
             
-            return View(Mapping.EntityToModel(post));
+            return View(_mapper.Map<ViewModel>(post));
         }
 
         public IActionResult Create(int blogId)
         {
-            return View(new PostModel());
+            return View(new CreateOrUpdateModel());
         }
 
         [HttpPost]
-        public IActionResult Create(int blogId, PostModel model)
+        public IActionResult Create(int blogId, CreateOrUpdateModel model)
         {
             var blog = _blogService.Get(blogId);
             if (TryValidateModel(model) && blog != null)
             {
                 var post = new Post();
-                Mapping.ModelToEntity(model, post);
+                _mapper.Map(model, post);
                 post.Blog = blog;
                 _postService.Insert(post);
                 return RedirectToAction("View", "Blog", new
@@ -58,11 +62,11 @@ namespace BlogApp.Controllers
             if (post == null)
                 return NotFound();
 
-            return View(Mapping.EntityToModel(post));
+            return View(_mapper.Map<CreateOrUpdateModel>(post));
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, PostModel model)
+        public IActionResult Edit(int id, CreateOrUpdateModel model)
         {
             if (TryValidateModel(model))
             {
@@ -70,7 +74,7 @@ namespace BlogApp.Controllers
                 if (post == null)
                     return NotFound();
 
-                Mapping.ModelToEntity(model, post);
+                _mapper.Map(model, post);
                 _postService.Update(post);
 
                 return RedirectToAction("View", new

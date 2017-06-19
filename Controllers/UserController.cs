@@ -1,6 +1,7 @@
 ﻿using BlogApp.Entities;
 using BlogApp.Exceptions;
 using BlogApp.Models;
+using BlogApp.Models.User;
 using BlogApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +18,11 @@ namespace BlogApp.Controllers
 
         public IActionResult Register()
         {
-            return View(new UserRegisterModel());
+            return View(new RegisterModel());
         }
 
         [HttpPost]
-        public IActionResult Register(UserRegisterModel model)
+        public IActionResult Register(RegisterModel model)
         {
             if (TryValidateModel(model))
             {
@@ -55,11 +56,11 @@ namespace BlogApp.Controllers
 
         public IActionResult SignIn()
         {
-            return View(new UserSignInModel());
+            return View(new SignInModel());
         }
 
         [HttpPost]
-        public IActionResult SignIn(UserSignInModel model)
+        public IActionResult SignIn(SignInModel model)
         {
             if (TryValidateModel(model))
             {
@@ -70,7 +71,10 @@ namespace BlogApp.Controllers
                 }
                 catch (SignInUserException ex)
                 {
-                    ModelState.AddModelError("signInError",ex.Message);
+                    foreach (var error in ex.Errors)
+                    {
+                        ModelState.AddModelError("signInError",error);
+                    }
                 }
             }
             

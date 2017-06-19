@@ -1,4 +1,4 @@
-﻿@model BlogApp.Models.UserSignInModel
+﻿@model BlogApp.Models.User.SignInModel
 
 @using (Html.BeginForm("SignIn","User"))
 {
@@ -13,7 +13,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Password)
-        @Html.TextBoxFor(model => model.Password, new
+        @Html.PasswordFor(model => model.Password, new
         {
             @class = "form-control"
         })

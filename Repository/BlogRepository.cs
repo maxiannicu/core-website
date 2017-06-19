@@ -13,7 +13,7 @@ namespace BlogApp.Repository
 
         public List<Blog> Get(int? skip = null, int? take = null)
         {
-            IQueryable<Blog> queryable = Table.Include(blog => blog.Posts);
+            IQueryable<Blog> queryable = Table.Include(blog => blog.Posts).Include(blog => blog.Author);
             if (skip.HasValue)
                 queryable = queryable.Skip(skip.Value);
             if (take.HasValue)

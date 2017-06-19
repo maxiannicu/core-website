@@ -1,17 +1,16 @@
-@using BlogApp.Models
-@model BlogApp.Models.BlogViewModel
+@model BlogApp.Models.Blog.ViewModel
 @{
-    ViewData["Title"] = @Model.Blog.Title;
+    ViewData["Title"] = @Model.Title;
 }
 
 
 <div class="page-header">
     <h1>
-        @Model.Blog.Title - @Model.Blog.Author
+        @Model.Title
         <small>
             <a href="@Url.Action("Create", "Post", new
                      {
-                         blogId = @Model.Blog.Id
+                         blogId = @Model.Id
                      })" type="button" class="btn btn-success" aria-label="Left Align">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 New post
@@ -24,7 +23,7 @@
     <div class="row">
         <div class="col-md-12">
             <div id="postlist">
-                @foreach (PostModel post in @Model.Posts)
+                @foreach (var post in @Model.Posts)
                 {
                     <div class="panel">
                         <div class="panel-heading row">
