@@ -11,21 +11,17 @@ namespace BlogApp.Repository
         {
         }
 
+        protected override IQueryable<Blog> Table => base.Table.Include(b => b.Author).Include(b => b.Posts);
+
         public List<Blog> Get(int? skip = null, int? take = null)
         {
-            IQueryable<Blog> queryable = Table.Include(blog => blog.Posts).Include(blog => blog.Author);
+            IQueryable<Blog> queryable = Table;
             if (skip.HasValue)
                 queryable = queryable.Skip(skip.Value);
             if (take.HasValue)
                 queryable = queryable.Take(take.Value);
 
             return queryable.ToList();
-        }
-
-        public Blog GetBlogWithPosts(int id)
-        {
-            return Table.Include(blog => blog.Posts)
-                .FirstOrDefault(blog => blog.Id == id);
         }
     }
 }

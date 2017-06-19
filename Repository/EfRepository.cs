@@ -9,7 +9,7 @@ namespace BlogApp.Repository
         private AppDbContext _dbContext;
         private DbSet<T> _dbSet;
 
-        protected IQueryable<T> Table => _dbSet;
+        protected virtual IQueryable<T> Table => _dbSet;
 
         public EfRepository(AppDbContext dbContext)
         {
@@ -35,9 +35,9 @@ namespace BlogApp.Repository
             _dbContext.SaveChanges();
         }
 
-        public T FindById(int id)
+        public virtual T FindById(int id)
         {
-            return _dbSet.FirstOrDefault(entity => entity.Id == id);
+            return Table.FirstOrDefault(entity => entity.Id == id);
         }
     }
 }

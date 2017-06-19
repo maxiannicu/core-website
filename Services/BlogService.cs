@@ -26,25 +26,18 @@ namespace BlogApp.Services
             return _blogRepository.FindById(id);
         }
 
-        public Blog GetBlogWithPosts(int id)
-        {
-            return _blogRepository.GetBlogWithPosts(id);
-        }
-
         public void Remove(int id)
         {
             var entity = _blogRepository.FindById(id);
-            if(_userService.CurrentUser != entity.Author)
-                throw new UnauthorizedAccessException("Cannot delete entity. You're not owner of blog.");
-            
-            if(entity != null)
+
+            if (entity != null)
+            {
                 _blogRepository.Remove(entity);
+            }
         }
 
         public void Update(Blog entity)
         {
-            if(_userService.CurrentUser != entity.Author)
-                throw new UnauthorizedAccessException("Cannot update entity. You're not owner of blog.");
             _blogRepository.Update(entity);
         }
 

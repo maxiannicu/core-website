@@ -35,7 +35,7 @@ namespace BlogApp.Controllers
 
         public IActionResult View(int id)
         {
-            var blog = _blogService.GetBlogWithPosts(id);
+            var blog = _blogService.Get(id);
             if (blog == null)
                 return NotFound();
 
